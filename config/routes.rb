@@ -1,5 +1,5 @@
 Courier::Application.routes.draw do
-    root to: 'static_pages#home'
+    root to: 'deliveries#new'
 
     match '/signin', to: 'sessions#new'
     match '/signout', to: 'sessions#destroy', via: :delete
