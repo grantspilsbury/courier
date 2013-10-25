@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  from_address: MyString
+  from_area: MyString
+  to_address: MyString
+  to_area: MyString
+  special_instructions: MyString
+  quote: MyString
+  user: 
+
+two:
+  from_address: MyString
+  from_area: MyString
+  to_address: MyString
+  to_area: MyString
+  special_instructions: MyString
+  quote: MyString
+  user: 

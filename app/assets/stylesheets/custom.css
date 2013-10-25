@@ -1,0 +1,34 @@
+.address-panel {
+    font-size: 0.9em;
+}
+
+.terms-link {
+    font-size: 0.8em;
+}
+
+.explaination {
+    margin: 0.5em 0;
+}
+
+#home hr {
+    margin: 0.5em 0;
+}
+
+#home .panel {
+    padding: 0.8em;
+}
+
+.logo {
+    display: inline-block;
+}
+
+.catch {
+    margin-left: 2em;
+    font-weight: 300;
+}
+
+#delivery_from_address,
+#delivery_to_address {
+    min-height: 70px;
+}
+

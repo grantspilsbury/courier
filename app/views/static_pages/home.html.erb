@@ -1,0 +1,159 @@
+    <% provide(:title, 'Home') %>
+    <div id='home'>
+    <div class="row">
+        <div class="large-12 columns">
+            <h2 class='logo'>Fast Eddie</h2>
+            <span class='catch'>Collect and deliver locally</span>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row quote-container">
+        <div class="large-8 columns">
+<p class="explaination">Think of Fast Eddie as your personal runner. <br >He'll pick stuff up, drop stuff off, quickly, and with very little fuss.</p>
+            <%= form_for @delivery do |f| %>
+            <div class="row">
+                <div class="large-6 columns">
+                    <h3>Collect from:</h3>
+                    <div class="panel">
+
+                              <div class="row">
+                                <div class="large-12 columns">
+                                    <%= f.label :address, "" %>
+                                    <%= f.text_area :from_address, placeholder: "Company name, street number, street name, building number, floor" %>
+                                </div>
+                            </div>
+
+                              <div class="row">
+                                <div class="large-12 columns">
+                                    <label>Suburb</label>
+                                    <%= f.collection_select :from_area, Area.find(:all), :id, :name, prompt: "Select", class: "small secondary radius button dropdown" %>
+                                </div>
+                              </div>                                            
+
+                    </div>
+                </div>
+                <div class="large-6 columns">
+                    <h3>Deliver to:</h3>
+                    <div class="panel">
+
+                              <div class="row">
+                                <div class="large-12 columns">
+                                    <%= f.label :address, "" %>
+                                    <%= f.text_area :to_address, rows: '10', placeholder: "Company name, street number, street name, building number, floor" %>
+                                </div>
+                            </div>
+
+                              <div class="row">
+                                <div class="large-12 columns">
+                                    <label>Suburb</label>
+                                    <%= f.collection_select :to_area, Area.find(:all), :id, :name, prompt: "Select", class: "small secondary radius button dropdown" %>
+                                </div>
+                              </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="large-12 columns">
+                    <div class="panel">
+                       <label>Special instructions</label>
+                                    <textarea placeholder="Specific time etc"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quote-panel" class="row">
+                <div class="large-12 columns">
+                    <div class="panel">
+                       Fee: R<span id='quote-value'></span>
+                        <%= f.hidden_field :quote %>
+                    </div>
+                </div>
+            </div>
+
+            <div id="submit-panel" class="row">
+                <div class="large-4 columns">
+                    <% @signed_in = false %>
+                    <% if @signed_in %>
+                        <%= f.submit "Signed in", confirm: 'Fast Eddie is on his way', class: "button" %>
+                    <% else %>
+                        <%= link_to 'Not signed in', '#', class: "button" %>
+                    <% end %>
+                </div>
+                <div class="large-8 columns terms-link">
+                    <p>By clicking this link you promise that the package is legal, small enough to be carried by one (small) man and fit in one (small) boot.</p>
+                </div>
+            </div>
+
+        <% end %>
+        </div>
+
+        <div class="large-4 columns address-panel">
+            <% if @signed_in %>
+            <h4>Saved Addresses</h4>
+            <ul>
+                <li><a href="#">62 Bathurst street. Johannesburg South. 4th Floor</a></li>
+                <li><a href="#">999 Hobbs street. Johannesburg</a></li>
+                <li><a href="#">1 High street. Umhlanga. Durban</a></li>
+            </ul>
+            <h4>Recent Addresses</h4>
+            <ul>
+            <li><a href="#">62 Bathurst street. Johannesburg South. 4th Floor</a></li>
+            <li><a href="#">999 Hobbs street. Johannesburg</a></li>
+            <li><a href="#">1 High street. Umhlanga. Durban</a></li>
+        </ul>
+        <% else %>
+        <p>Display sign in box</p>
+        <% end %>
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript">
+
+    $(document).ready(function(){ 
+
+    var workOutQuote = function() {
+        var value1 = $("#delivery_from_area").val();
+        var value2 = $("#delivery_to_area").val();
+
+        if (value1 == '1' && value2 == '1' ||
+            value1 == '2' && value2 == '2' ||
+            value1 == '3' && value2 == '3')
+        {
+            $("#quote-value").html('80');
+        } 
+        else if (value1 == '4' || value2 == '4'
+            || value1 == '5' || value2 == '5')
+        {
+            $("#quote-value").html('120');
+        }
+        else
+        {
+            $("#quote-value").html('90');
+        }
+    }
+
+    $("#delivery_from_area").on("change",function(){
+             var value1 = $(this).val();
+             var value2 = $("#delivery_to_area").val();
+             if(value2!="" && value1!="")
+                { workOutQuote(); }
+            else
+                { $("#quote-value").html('') }
+       });
+
+    $("#delivery_to_area").on("change",function(){
+             var value1 = $(this).val();
+             var value2 = $("#delivery_from_area").val();
+             if(value2!="" && value1!="") 
+                { workOutQuote(); }
+            else
+                { $("#quote-value").html('') }
+       });
+
+});
+
+    </script>
