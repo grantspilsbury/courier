@@ -1,159 +1,209 @@
-    <% provide(:title, 'New delivery') %>
-    <div id='home'>
-    <div class="row">
-        <div class="large-12 columns">
-            <h2 class='logo'>Fast Eddie</h2>
-            <span class='catch'>Collect and deliver locally</span>
-            <hr />
+<% provide(:title, "Home") %>
+<div class='home'>
+
+    <%= render 'layouts/header' %>
+
+    <section id="inner-headline">
+        <div class="container">
+            <div class="row">
+                <div class="span8">
+                    <div class="inner-heading">
+                        <p>Think of Fast Eddie as your personal runner. <br >He'll pick stuff up, drop stuff off, quickly, and with very little fuss.</p>
+                        <p><strong>Fill out the form below and Fast Eddie will see you in a snap.</strong></p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <div class="row quote-container">
-        <div class="large-8 columns">
-<p class="explaination">Think of Fast Eddie as your personal runner. <br >He'll pick stuff up, drop stuff off, quickly, and with very little fuss.</p>
-            <%= form_for @delivery do |f| %>
+    <section id="content">
+        <div class="container">
             <div class="row">
-                <div class="large-6 columns">
-                    <h3>Collect from:</h3>
-                    <div class="panel">
 
-                              <div class="row">
-                                <div class="large-12 columns">
-                                    <%= f.label :address, "" %>
-                                    <%= f.text_area :from_address, placeholder: "Company name, street number, street name, building number, floor" %>
-                                </div>
+                <%= form_for @delivery, html: { class: 'custom' } do |f| %>
+                <% flash.each do |key, value| %>
+                <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+                <% end %>
+                <%= render 'shared/error_messages', object: f.object %>
+                <!-- Address from -->
+                <div class='span7'>
+                    <div class="span3">
+                        <h4 class='home-form-header'>Collect from</h4>
+                        <div class="row">
+                            <div class="field">
+                                <%= f.label :collection_address %>
+                                <%= f.text_area :from_address, rows: '3', placeholder: "Company name, street number, street name, building number, floor", class: "input-block-level" %>
                             </div>
 
-                              <div class="row">
-                                <div class="large-12 columns">
-                                    <label>Suburb</label>
-                                    <%= f.collection_select :from_area, Area.find(:all), :id, :name, prompt: "Select", class: "small secondary radius button dropdown" %>
-                                </div>
-                              </div>                                            
-
-                    </div>
-                </div>
-                <div class="large-6 columns">
-                    <h3>Deliver to:</h3>
-                    <div class="panel">
-
-                              <div class="row">
-                                <div class="large-12 columns">
-                                    <%= f.label :address, "" %>
-                                    <%= f.text_area :to_address, rows: '10', placeholder: "Company name, street number, street name, building number, floor" %>
-                                </div>
+                            <div class="field">
+                                <label>Suburb</label>
+                                <%= f.collection_select :from_area, Area.find(:all), :id, :name, { prompt: "Select" }, { class: "medium"} %>
                             </div>
+                        </div>
+                    </div>
 
-                              <div class="row">
-                                <div class="large-12 columns">
-                                    <label>Suburb</label>
-                                    <%= f.collection_select :to_area, Area.find(:all), :id, :name, prompt: "Select", class: "small secondary radius button dropdown" %>
-                                </div>
-                              </div>
 
+                    <!-- Address to -->
+                    <div class="span3">
+                        <h4 class='home-form-header'>Deliver to</h4>
+                        <div class="row">
+                            <div class="field">
+                                <%= f.label :delivery_address %>
+                                <%= f.text_area :to_address, rows: '3', placeholder: "Company name, street number, street name, building number, floor", class: "input-block-level" %>
+                            </div>
+                            <div class="field">
+                                <label>Suburb</label>
+                                <%= f.collection_select :to_area, Area.find(:all), :id, :name, { prompt: "Select" }, { class: "medium"} %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='row'>
+                        <!-- special instructions -->
+                        <div class="span3 field">
+                            <%= f.label :special_instructions %>
+                            <%= f.text_area :special_instructions, rows: '3', placeholder: "Specific times etc" %>
+                        </div>
+
+                        <div class="span2 field quote-container">
+                            <span class='quote-currency'>Fee: R</span><%= f.text_field :quote, readonly: true %>
+                        </div>
+                    </div>
+
+                    <div class='span6'>
+                        <p>
+                                <% if signed_in? %>
+                                <%= f.submit "Submit", confirm: 'Sending Fast Eddie?', class: "btn btn-home margintop10 pull-left" %>
+                                <% else %>
+                                <%= link_to 'Submit', signup_path, class: "btn btn-fake margintop10 pull-left" %>
+                                <% end %>
+                            </p>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="large-12 columns">
-                    <div class="panel">
-                       <label>Special instructions</label>
-                                    <textarea placeholder="Specific time etc"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <div id="quote-panel" class="row">
-                <div class="large-12 columns">
-                    <div class="panel">
-                       Fee: R<span id='quote-value'></span>
-                        <%= f.hidden_field :quote %>
-                    </div>
-                </div>
-            </div>
-
-            <div id="submit-panel" class="row">
-                <div class="large-4 columns">
-                    <% @signed_in = false %>
-                    <% if @signed_in %>
-                        <%= f.submit "Signed in", confirm: 'Fast Eddie is on his way', class: "button" %>
+<% end %>
+                <!-- Addresses -->
+                <div class="span4 addresses">
+                    <% if signed_in? %>
+                    <p>Recent addresses</p>
+                    <ul>
+                        <% @recent_addresses.each do |address| %>
+                        <li><span class="click-address"><%= address.from_address %></span><br > <%= link_to 'Use as collection address', '#', class: 'options options-collection' %> <%= link_to 'Use as delivery address', '#', class: 'options options-delivery' %></li>
+                        <li><span class="click-address"><%= address.to_address %></span><br > <%= link_to 'Use as collection address', '#', class: 'options options-collection' %> <%= link_to 'Use as delivery address', '#', class: 'options options-delivery' %></li>
+                        <% end %>
+                    </ul>
                     <% else %>
-                        <%= link_to 'Not signed in', '#', class: "button" %>
+                    <div id='signin-container'>
+                    <p>Sign in to arrange a collection</p>
+                    <%= form_for(:session, url: sessions_path, :html=> {class: 'signin-form'}) do |f| %>
+                    <%= f.label :email %>
+                    <%= f.text_field :email %>
+                    <%= f.label :password %>
+                    <%= f.password_field :password %>
+                    <%= f.submit "Sign in", class: "" %>
+                    <% end %>
+                    <p>New user? <%= link_to "Sign up", '#', class: 'signup link-click' %></p>
+                </div>
+
+                <div id='signup-container'>
+                    <p>Create a free account</p>
+                <%= form_for(@user, :html=> {class: 'signin-form'}) do |f| %>
+                <%= render 'shared/error_messages', object: f.object %>
+
+                  <%= f.label :name %>
+                  <%= f.text_field :name %>
+
+                  <%= f.label :email %>
+                  <%= f.text_field :email %>
+
+                  <%= f.label :contact_number %>
+                  <%= f.text_field :contact_number %>
+
+                  <%= f.label :password %>
+                  <%= f.password_field :password %>
+
+                  <%= f.label :password_confirmation, "Confirmation" %>
+                  <%= f.password_field :password_confirmation %>
+
+                  <%= f.submit "Create my account", class: "" %>
+                <% end %>
+                <p>Already have an account? <%= link_to "Log in", '#', class: 'signup link-click' %></p>
+</div>
+
                     <% end %>
                 </div>
-                <div class="large-8 columns terms-link">
-                    <p>By clicking this link you promise that the package is legal, small enough to be carried by one (small) man and fit in one (small) boot.</p>
-                </div>
             </div>
 
-        <% end %>
-        </div>
+            
 
-        <div class="large-4 columns address-panel">
-            <% if @signed_in %>
-            <h4>Saved Addresses</h4>
-            <ul>
-                <li><a href="#">62 Bathurst street. Johannesburg South. 4th Floor</a></li>
-                <li><a href="#">999 Hobbs street. Johannesburg</a></li>
-                <li><a href="#">1 High street. Umhlanga. Durban</a></li>
-            </ul>
-            <h4>Recent Addresses</h4>
-            <ul>
-            <li><a href="#">62 Bathurst street. Johannesburg South. 4th Floor</a></li>
-            <li><a href="#">999 Hobbs street. Johannesburg</a></li>
-            <li><a href="#">1 High street. Umhlanga. Durban</a></li>
-        </ul>
-        <% else %>
-        <p>Display sign in box</p>
-        <% end %>
         </div>
+    </section>
+    
+    <%= render 'layouts/footer' %>
+
     </div>
-</div>
+    <a href="#" class="scrollup"><i class="icon-chevron-up icon-square icon-32 active"></i></a>
 
     <script type="text/javascript">
 
     $(document).ready(function(){ 
 
-    var workOutQuote = function() {
-        var value1 = $("#delivery_from_area").val();
-        var value2 = $("#delivery_to_area").val();
+        var workOutQuote = function() {
+            var value1 = $("#delivery_from_area").val();
+            var value2 = $("#delivery_to_area").val();
 
-        if (value1 == '1' && value2 == '1' ||
-            value1 == '2' && value2 == '2' ||
-            value1 == '3' && value2 == '3')
-        {
-            $("#quote-value").html('80');
-        } 
-        else if (value1 == '4' || value2 == '4'
-            || value1 == '5' || value2 == '5')
-        {
-            $("#quote-value").html('120');
+            if (value1 == '1' && value2 == '1' ||
+                value1 == '2' && value2 == '2' ||
+                value1 == '3' && value2 == '3')
+            {
+                $("#delivery_quote").val('80');
+            } 
+            else if (value1 == '4' || value2 == '4'
+                || value1 == '5' || value2 == '5')
+            {
+                $("#delivery_quote").val('120');
+            }
+            else
+            {
+                $("#delivery_quote").val('90');
+            }
         }
-        else
-        {
-            $("#quote-value").html('90');
-        }
-    }
 
-    $("#delivery_from_area").on("change",function(){
-             var value1 = $(this).val();
-             var value2 = $("#delivery_to_area").val();
-             if(value2!="" && value1!="")
+        $("#delivery_from_area").on("change",function(){
+            var value1 = $(this).val();
+            var value2 = $("#delivery_to_area").val();
+            if(value2!="" && value1!="")
                 { workOutQuote(); }
             else
-                { $("#quote-value").html('') }
-       });
+                { $("#delivery_quote").val('') }
+        });
 
-    $("#delivery_to_area").on("change",function(){
-             var value1 = $(this).val();
-             var value2 = $("#delivery_from_area").val();
-             if(value2!="" && value1!="") 
+        $("#delivery_to_area").on("change",function(){
+            var value1 = $(this).val();
+            var value2 = $("#delivery_from_area").val();
+            if(value2!="" && value1!="") 
                 { workOutQuote(); }
             else
-                { $("#quote-value").html('') }
-       });
+                { $("#delivery_quote").val('') }
+        });
 
-});
+            $(".options-collection").click(function(e){
+                e.preventDefault();
+                var addr = $(this).closest('li').find('.click-address').text();
+                $("#delivery_from_address" ).val(addr);
+            });
 
-    </script>
+            $(".options-delivery").click(function(e){
+                e.preventDefault();
+                var addr = $(this).closest('li').find('.click-address').text();
+                $( "#delivery_to_address" ).val(addr);
+            });
+
+            $(".link-click").click(function(e){
+                e.preventDefault();
+                $('#signup-container').toggle();
+                $('#signin-container').toggle();
+            });
+
+    });
+
+</script>

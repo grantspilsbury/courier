@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  status: MyString
+  chargify_subscription_id: MyString
+  user: 
+
+two:
+  status: MyString
+  chargify_subscription_id: MyString
+  user: 

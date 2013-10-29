@@ -1,0 +1,29 @@
+<% provide(:title, "History") %>
+<%= render 'layouts/header' %>
+<section id="inner-headline">
+    <div class="container">
+                <div class="row">
+            <div class="span12">
+                <div class="inner-heading">
+                    <h2>Delivery log</h2>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+<section id="content">
+    <div class="container">
+            <div class="span12">
+                <table class="table table-striped">
+                    <tr>
+                        <th>From Address</th>
+                        <th>To Address</th>
+                        <th>Fee</th>
+                        <th>Date created</th>
+                    </tr>
+                    <%= render @deliveries %>
+                </table>
+            </div>
+    </div>
+</section>
+<%= render 'layouts/footer' %>

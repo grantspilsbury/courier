@@ -5,6 +5,10 @@ Courier::Application.routes.draw do
     match '/signout', to: 'sessions#destroy', via: :delete
     match '/signup', to: 'users#new'
     
-    resources :deliveries
-    resources :users
+    resources :sessions, only: [:new, :create, :destroy]
+    
+    resources :deliveries, only: [:new, :create]
+    resources :users do
+        resources :deliveries, only: [:index]
+    end
 end

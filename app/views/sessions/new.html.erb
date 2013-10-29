@@ -1,0 +1,36 @@
+<% provide(:title, 'Sign in') %>
+<%= render 'layouts/header' %>
+<section id="inner-headline">
+    <div class="container">
+                <div class="row">
+            <div class="span12">
+                <div class="inner-heading">
+                    <h2>Sign in</h2>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+<section id="content">
+    <div class="container">
+            <div class="span12">
+                <%= form_for(:session, url: sessions_path) do |f| %>
+                    <div class="span6 field">
+                        <%= f.label :email %>
+                        <%= f.text_field :email %>
+                    </div>
+                    <div class="span12 margintop10 field">     
+                        <%= f.label :password %>
+                        <%= f.password_field :password %>
+                        <p>
+                            <%= f.submit "Submit", class: "btn btn-home margintop10 pull-left" %>
+                        </p>
+                    </div>
+                <% end %>
+                <span class='span12'>
+                <%= link_to("New user?", signup_path) %> |  <%= link_to "Forgot your password?", '#' %>
+                </span>
+            </div>
+    </div>
+</section>
+<%= render 'layouts/footer' %>

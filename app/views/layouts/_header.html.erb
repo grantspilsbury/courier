@@ -1,0 +1,41 @@
+<header>
+        <div class="container">
+            <div class="row nomargin">
+                <div class="span12">
+                    <div class="headnav">
+                        <ul>
+                            <% if signed_in? %>
+                            <li><%= link_to "Log out", signout_path, method: "delete" %></li>
+                            <% else %>
+                            <li><%= link_to "Create a free account", signup_path %></li>
+                            <li><%= link_to "Log in", signin_path %></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row logo-row">
+                <div class="span4">
+                    <div class="logo">
+                        <%= link_to image_tag("logo.png"), root_path %>
+                    </div>
+                </div>
+                <div class="span8">
+                    <div class="navbar navbar-static-top">
+                        <div class="navigation">
+                            <nav>
+                                <ul class="nav topnav">
+                                    <li><%= link_to 'Home', root_path %></li>
+                                <% if signed_in? %>
+                                    <li><%= link_to 'History', user_deliveries_path(current_user) %></li>
+                                <% end %>
+                                    <li><%= link_to 'Contact', '#' %></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- end navigation -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>

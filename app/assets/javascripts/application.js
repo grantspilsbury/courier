@@ -12,7 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require foundation
-//= require_tree .
-
-$(document).foundation();
+//= require jquery.tweet
+//= require bootstrap
+//= require modernizr.custom.79639
+//= require prettify
+//= require custom

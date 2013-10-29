@@ -1,33 +1,127 @@
-.address-panel {
-    font-size: 0.9em;
+body {
+    color: #353535;
+}
+
+.btn-fake, .btn-home {
+    background: none repeat scroll 0 0 #0088CC;
+    color: #fff;
+}
+
+.btn-fake:hover, .btn-home:hover {
+    background: #0C3650;
+     color: #fff;
+    }
+
+    .home .row {
+        margin-bottom: 0px;
+        margin-top: 10px;
+    }
+
+    h4.home-form-header {
+        padding: 0;
+        margin: 0;
+    }
+
+    #delivery_special_instructions {
+        width: 90%;
+    }
+
+    #delivery_quote {
+        width: 60px;
+        margin: 0;
+        font-size: 1.6em;
+        height: 35px;
+        border: none;
+        box-shadow: none;
+        display: inline;
+        color: #0C3650;
+        background-color: #fff;
+    }
+
+    footer {
+        margin: 50px 0 0;
+    }
+
+.addresses {
+    background-color: #0C3650;
+    color: #fff;
+    padding: 10px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.home ul {
+    list-style: none;
+}
+
+.addresses a.options {
+    font-size: 0.8em;
+    color: #0088CC;
+    padding-right: 10px;
+}
+
+.addresses a {
+    color: #fff;
+}
+
+.addresses li {
+    line-height: 1.1em;
+    margin-bottom: 1em;
+}
+
+select {
+    color: #353535;
 }
 
 .terms-link {
-    font-size: 0.8em;
-}
-
-.explaination {
-    margin: 0.5em 0;
-}
-
-#home hr {
-    margin: 0.5em 0;
-}
-
-#home .panel {
-    padding: 0.8em;
-}
-
-.logo {
-    display: inline-block;
-}
-
-.catch {
-    margin-left: 2em;
-    font-weight: 300;
+    margin-right: 10px;
 }
 
 #delivery_from_address,
 #delivery_to_address {
-    min-height: 70px;
+    width: 95%;
+}
+
+.signin-form label {
+    color: #fff;
+}
+
+a.signup {
+    color: #0088CC;
+}
+
+#signup-container {
+    display: none;
+}
+
+.quote-container {
+    font-size: 1.3em;
+    font-weight: 400;
+    margin: 30px;
+    padding: 10px;
+    border: dashed 1px #0C3650;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.quote-currency {
+    margin-right: 10px;
+}
+
+.btn-fake, .btn-home {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    padding: 10px;
+}
+
+.logo-row {
+    margin-bottom: 0;
+}
+
+.table-striped tbody > tr:nth-child(odd) > td,
+.table-striped tbody > tr:nth-child(odd) > th {
+    background-color: #D9EDF7;
 }
