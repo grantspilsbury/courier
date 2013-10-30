@@ -1,6 +1,10 @@
 <tr>
 <td><%= delivery.from_address %></td>
 <td><%= delivery.to_address %></td>
-<td>R<%= delivery.quote %></td>
+<td>
+    <% if !delivery.quote.nil? %>
+        <%= delivery.quote %>
+    <% end %>
+</td>
 <td><%= delivery.created_at %></td>
 </tr>

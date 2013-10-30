@@ -13,7 +13,8 @@ class DeliveriesController < ApplicationController
 
     def create
         @user = current_user
-        if @user.deliveries.create(params[:delivery])
+        @delivery = @user.deliveries.build(params[:delivery])
+        if @delivery.save
             flash[:success] = "Fast Eddie is on his way."
             redirect_to root_path
         else

@@ -77,10 +77,10 @@ a:active {
 	padding:0;
 	background:#fff;
 }
-
+/*
 .row,.row-fluid {
 	margin-bottom:30px;
-}
+}*/
 
 .row .row,.row-fluid .row-fluid{
 	margin-bottom:30px;
@@ -219,17 +219,6 @@ header{
 	margin:0;
 	padding:0;
 	position:relative;
-}
-
-header .logo {
-	margin:-10px 0 0 0;
-	float:left;
-}
-
-header .logo img {
-	margin-bottom:10px;
-    position: absolute;
-    top: 5px;
 }
 
 

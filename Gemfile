@@ -8,8 +8,6 @@ gem 'rails', '3.2.11'
 gem "pg", "~> 0.14.1"
 gem 'bcrypt-ruby', '3.0.1'
 gem 'faker', '1.0.1'
-gem 'sidekiq'
-gem 'redis'
 gem 'airbrake'
 gem 'newrelic_rpm'
 gem 'chargify_api_ares'

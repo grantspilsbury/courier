@@ -1,3 +1,14 @@
+@font-face {
+    font-family: 'ostrich_sansmedium';
+    src: url(<%= asset_path 'ostrich-regular-webfont.eot' %>);
+    src: url(<%= asset_path 'ostrich-regular-webfont.eot?#iefix' %>) format('embedded-opentype'),
+         url(<%= asset_path 'ostrich-regular-webfont.woff' %>) format('woff'),
+         url(<%= asset_path 'ostrich-regular-webfont.ttf' %>) format('truetype'),
+         url(<%= asset_path 'ostrich-regular-webfont.svg#ostrich_sansmedium' %>) format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     color: #353535;
 }
@@ -7,7 +18,8 @@ body {
     color: #fff;
 }
 
-.btn-fake:hover, .btn-home:hover {
+.btn-fake:hover, .btn-fake:active,
+.btn-home:hover, .btn-home:active {
     background: #0C3650;
      color: #fff;
     }
@@ -96,32 +108,57 @@ a.signup {
     display: none;
 }
 
-.quote-container {
-    font-size: 1.3em;
-    font-weight: 400;
-    margin: 30px;
-    padding: 10px;
-    border: dashed 1px #0C3650;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-}
-
-.quote-currency {
-    margin-right: 10px;
-}
-
 .btn-fake, .btn-home {
     margin-bottom: 20px;
     font-size: 1.5em;
     padding: 10px;
 }
 
-.logo-row {
-    margin-bottom: 0;
-}
-
 .table-striped tbody > tr:nth-child(odd) > td,
 .table-striped tbody > tr:nth-child(odd) > th {
     background-color: #D9EDF7;
+}
+
+.logo {
+    font-family: 'ostrich_sansmedium', Helvetica, Arial, sans-serif;
+    font-size: 80px;
+    margin-right: 20px;
+    padding: 10px 0 20px 0;
+    display: inline-block; 
+    line-height: 50px;
+}
+
+#logo {
+    text-decoration: none;
+    color: #0C3650;
+    text-shadow: 1px 1px 1px #0088CC;
+}
+
+.slogan {
+    font-size: 14px;
+}
+
+.inner-heading {
+    font-size: 1.3em;
+    font-weight: 600;
+    margin: 10px;
+}
+
+header {
+    margin: 10px 0 0;
+}
+
+#error_explanation li {
+    color: #B94A48;
+}
+
+.delivery-panel {
+    border: dashed 1px #0C3650;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.headnav ul li a.login-links {
+    color: #0C3650;
 }

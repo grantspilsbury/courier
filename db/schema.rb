@@ -11,24 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131029075026) do
-
-  create_table "areas", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
+ActiveRecord::Schema.define(:version => 20131030103250) do
 
   create_table "deliveries", :force => true do |t|
     t.string   "from_address"
-    t.string   "from_area"
     t.string   "to_address"
-    t.string   "to_area"
     t.string   "special_instructions"
     t.integer  "user_id"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
-    t.integer  "quote"
+    t.string   "size"
   end
 
   add_index "deliveries", ["user_id"], :name => "index_deliveries_on_user_id"
@@ -47,14 +39,15 @@ ActiveRecord::Schema.define(:version => 20131029075026) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "contact_number"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.string   "email"
     t.string   "password_digest"
     t.string   "company"
     t.string   "remember_token"
-    t.text     "saved_addresses"
     t.string   "obfuscated_id"
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
   end
 
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"

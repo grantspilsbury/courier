@@ -8,8 +8,7 @@
             <div class="row">
                 <div class="span8">
                     <div class="inner-heading">
-                        <p>Think of Fast Eddie as your personal runner. <br >He'll pick stuff up, drop stuff off, quickly, and with very little fuss.</p>
-                        <p><strong>Fill out the form below and Fast Eddie will see you in a snap.</strong></p>
+                        <p>What can we collect or deliver for you today?</p>
                     </div>
                 </div>
             </div>
@@ -26,56 +25,35 @@
                 <% end %>
                 <%= render 'shared/error_messages', object: f.object %>
                 <!-- Address from -->
-                <div class='span7'>
-                    <div class="span3">
-                        <h4 class='home-form-header'>Collect from</h4>
-                        <div class="row">
-                            <div class="field">
+                <div class='span7 delivery-panel'>
+                    <div class="span3 field">
                                 <%= f.label :collection_address %>
-                                <%= f.text_area :from_address, rows: '3', placeholder: "Company name, street number, street name, building number, floor", class: "input-block-level" %>
-                            </div>
-
-                            <div class="field">
-                                <label>Suburb</label>
-                                <%= f.collection_select :from_area, Area.find(:all), :id, :name, { prompt: "Select" }, { class: "medium"} %>
-                            </div>
-                        </div>
+                                <%= f.text_area :from_address, rows: '3', placeholder: "Street number, street name, building number, floor", class: "input-block-level" %>
                     </div>
-
 
                     <!-- Address to -->
-                    <div class="span3">
-                        <h4 class='home-form-header'>Deliver to</h4>
-                        <div class="row">
-                            <div class="field">
+                    <div class="span3 field">
                                 <%= f.label :delivery_address %>
-                                <%= f.text_area :to_address, rows: '3', placeholder: "Company name, street number, street name, building number, floor", class: "input-block-level" %>
-                            </div>
-                            <div class="field">
-                                <label>Suburb</label>
-                                <%= f.collection_select :to_area, Area.find(:all), :id, :name, { prompt: "Select" }, { class: "medium"} %>
-                            </div>
-                        </div>
+                                <%= f.text_area :to_address, rows: '3', placeholder: "Street number, street name, building number, floor", class: "input-block-level" %>
+                    </div>
+                    <div class="span6 field">
+                        <label>Size of package</label>
+                        <%= f.select(:size, options_for_select([['Small (Carry under 1 arm)', 1], ['Medium (Fit in a car boot)', 2], ['Large (A bakkie load)', 3]]), { prompt: "Select" }) %>
+                        <span id='quote'></span>
                     </div>
 
-                    <div class='row'>
                         <!-- special instructions -->
-                        <div class="span3 field">
+                        <div class="span6 field">
                             <%= f.label :special_instructions %>
-                            <%= f.text_area :special_instructions, rows: '3', placeholder: "Specific times etc" %>
+                            <%= f.text_area :special_instructions, rows: '3', placeholder: "Specific times for collections or deliveries etc" %>
                         </div>
-
-                        <div class="span2 field quote-container">
-                            <span class='quote-currency'>Fee: R</span><%= f.text_field :quote, readonly: true %>
-                        </div>
-                    </div>
 
                     <div class='span6'>
                         <p>
                                 <% if signed_in? %>
-                                <%= f.submit "Submit", confirm: 'Sending Fast Eddie?', class: "btn btn-home margintop10 pull-left" %>
+                                <%= f.submit "Send Fast Eddie", confirm: 'Sending Fast Eddie?', class: "btn btn-home margintop10 pull-left" %>
                                 <% else %>
-                                <%= link_to 'Submit', signup_path, class: "btn btn-fake margintop10 pull-left" %>
+                                <%= link_to 'Send Fast Eddie', signup_path, class: "btn btn-fake margintop10 pull-left" %>
                                 <% end %>
                             </p>
                     </div>
@@ -84,16 +62,19 @@
                 <!-- Addresses -->
                 <div class="span4 addresses">
                     <% if signed_in? %>
+                        
                     <p>Recent addresses</p>
+                    <% if @recent_addresses %>
                     <ul>
                         <% @recent_addresses.each do |address| %>
                         <li><span class="click-address"><%= address.from_address %></span><br > <%= link_to 'Use as collection address', '#', class: 'options options-collection' %> <%= link_to 'Use as delivery address', '#', class: 'options options-delivery' %></li>
                         <li><span class="click-address"><%= address.to_address %></span><br > <%= link_to 'Use as collection address', '#', class: 'options options-collection' %> <%= link_to 'Use as delivery address', '#', class: 'options options-delivery' %></li>
                         <% end %>
                     </ul>
+                    <% end %>
                     <% else %>
                     <div id='signin-container'>
-                    <p>Sign in to arrange a collection</p>
+                    <p>Sign in</p>
                     <%= form_for(:session, url: sessions_path, :html=> {class: 'signin-form'}) do |f| %>
                     <%= f.label :email %>
                     <%= f.text_field :email %>
@@ -101,7 +82,7 @@
                     <%= f.password_field :password %>
                     <%= f.submit "Sign in", class: "" %>
                     <% end %>
-                    <p>New user? <%= link_to "Sign up", '#', class: 'signup link-click' %></p>
+                    <p>New user? <%= link_to "Sign up", '#', class: 'signup link-click' %><br ><%= link_to "Forgot your password?", new_password_reset_path, class: 'signup' %></p>
                 </div>
 
                 <div id='signup-container'>
@@ -109,11 +90,14 @@
                 <%= form_for(@user, :html=> {class: 'signin-form'}) do |f| %>
                 <%= render 'shared/error_messages', object: f.object %>
 
-                  <%= f.label :name %>
-                  <%= f.text_field :name %>
+                  <%= f.label :company_name %>
+                  <%= f.text_field :company %>
 
                   <%= f.label :email %>
                   <%= f.text_field :email %>
+
+                  <%= f.label :contact_name %>
+                  <%= f.text_field :name %>
 
                   <%= f.label :contact_number %>
                   <%= f.text_field :contact_number %>
@@ -147,43 +131,16 @@
 
     $(document).ready(function(){ 
 
-        var workOutQuote = function() {
-            var value1 = $("#delivery_from_area").val();
-            var value2 = $("#delivery_to_area").val();
-
-            if (value1 == '1' && value2 == '1' ||
-                value1 == '2' && value2 == '2' ||
-                value1 == '3' && value2 == '3')
-            {
-                $("#delivery_quote").val('80');
-            } 
-            else if (value1 == '4' || value2 == '4'
-                || value1 == '5' || value2 == '5')
-            {
-                $("#delivery_quote").val('120');
-            }
-            else
-            {
-                $("#delivery_quote").val('90');
-            }
-        }
-
-        $("#delivery_from_area").on("change",function(){
+        $("#delivery_size").on("change",function(){
             var value1 = $(this).val();
-            var value2 = $("#delivery_to_area").val();
-            if(value2!="" && value1!="")
-                { workOutQuote(); }
+            if(value1=='1')
+                { $('#quote').text('R4 per km'); }
+            else if (value1=='2')
+                { $('#quote').text('R5 per km'); }
+            else if (value1=='3')
+                { $('#quote').text('R7 per km'); }
             else
-                { $("#delivery_quote").val('') }
-        });
-
-        $("#delivery_to_area").on("change",function(){
-            var value1 = $(this).val();
-            var value2 = $("#delivery_from_area").val();
-            if(value2!="" && value1!="") 
-                { workOutQuote(); }
-            else
-                { $("#delivery_quote").val('') }
+                { $('#quote').text(''); }
         });
 
             $(".options-collection").click(function(e){

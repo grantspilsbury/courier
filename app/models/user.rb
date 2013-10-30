@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-  serialize :recent_addresses, Array
 
   attr_accessible :contact_number, :name, 
   :email, :company, :password, :password_confirmation,
@@ -27,7 +26,20 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
-  private
+  def send_password_reset
+  generate_token(:password_reset_token)
+  self.password_reset_sent_at = Time.zone.now
+  save!(validate: false)
+  UserMailer.password_reset(self).deliver
+end
+
+def generate_token(column)
+  begin
+    self[column] = SecureRandom.urlsafe_base64
+  end while User.exists?(column => self[column])
+end
+
+protected
 
   #   def save_address
   #   @user = current_user
