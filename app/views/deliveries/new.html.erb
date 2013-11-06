@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="span8">
                     <div class="inner-heading">
-                        <p>What can we collect or deliver for you today?</p>
+                        <p>How can we help you today?</p>
                     </div>
                 </div>
             </div>
@@ -36,24 +36,19 @@
                                 <%= f.label :delivery_address %>
                                 <%= f.text_area :to_address, rows: '3', placeholder: "Street number, street name, building number, floor", class: "input-block-level" %>
                     </div>
-                    <div class="span6 field">
-                        <label>Size of package</label>
-                        <%= f.select(:size, options_for_select([['Small (Carry under 1 arm)', 1], ['Medium (Fit in a car boot)', 2], ['Large (A bakkie load)', 3]]), { prompt: "Select" }) %>
-                        <span id='quote'></span>
-                    </div>
-
+                    
                         <!-- special instructions -->
                         <div class="span6 field">
-                            <%= f.label :special_instructions %>
-                            <%= f.text_area :special_instructions, rows: '3', placeholder: "Specific times for collections or deliveries etc" %>
+                            <%= f.label :describe_the_job_that_you_need_done %>
+                            <%= f.text_area :special_instructions, rows: '3', placeholder: "Specific instructions including times, contacts, and additional information." %>
                         </div>
 
                     <div class='span6'>
                         <p>
                                 <% if signed_in? %>
-                                <%= f.submit "Send Fast Eddie", confirm: 'Sending Fast Eddie?', class: "btn btn-home margintop10 pull-left" %>
+                                <%= f.submit "Request a quote", confirm: 'Sending Fast Eddie?', class: "btn btn-home margintop10 pull-left" %>
                                 <% else %>
-                                <%= link_to 'Send Fast Eddie', signup_path, class: "btn btn-fake margintop10 pull-left" %>
+                                <%= link_to 'Send', signup_path, class: "btn btn-fake margintop10 pull-left" %>
                                 <% end %>
                             </p>
                     </div>

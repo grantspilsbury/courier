@@ -2,8 +2,8 @@
 <td><%= delivery.from_address %></td>
 <td><%= delivery.to_address %></td>
 <td>
-    <% if !delivery.quote.nil? %>
-        <%= delivery.quote %>
+    <% if !delivery.fee.nil? %>
+        <%= delivery.fee %>
     <% end %>
 </td>
 <td><%= delivery.created_at %></td>

@@ -1,10 +1,10 @@
 @font-face {
-    font-family: 'ostrich_sansmedium';
-    src: url(<%= asset_path 'ostrich-regular-webfont.eot' %>);
-    src: url(<%= asset_path 'ostrich-regular-webfont.eot?#iefix' %>) format('embedded-opentype'),
-         url(<%= asset_path 'ostrich-regular-webfont.woff' %>) format('woff'),
-         url(<%= asset_path 'ostrich-regular-webfont.ttf' %>) format('truetype'),
-         url(<%= asset_path 'ostrich-regular-webfont.svg#ostrich_sansmedium' %>) format('svg');
+    font-family: 'PacificoRegular';
+    src: url(<%= asset_path 'Pacifico-webfont.eot' %>);
+    src: url(<%= asset_path 'Pacifico-webfont.eot?#iefix' %>) format('embedded-opentype'),
+         url(<%= asset_path 'Pacifico-webfont.woff' %>) format('woff'),
+         url(<%= asset_path 'Pacifico-webfont.ttf' %>) format('truetype'),
+         url(<%= asset_path 'Pacifico-webfont.svg#PacificoRegular' %>) format('svg');
     font-weight: normal;
     font-style: normal;
 }
@@ -26,7 +26,6 @@ body {
 
     .home .row {
         margin-bottom: 0px;
-        margin-top: 10px;
     }
 
     h4.home-form-header {
@@ -120,8 +119,8 @@ a.signup {
 }
 
 .logo {
-    font-family: 'ostrich_sansmedium', Helvetica, Arial, sans-serif;
-    font-size: 80px;
+    font-family: 'PacificoRegular', Helvetica, Arial, sans-serif;
+    font-size: 50px;
     margin-right: 20px;
     padding: 10px 0 20px 0;
     display: inline-block; 
@@ -130,22 +129,20 @@ a.signup {
 
 #logo {
     text-decoration: none;
-    color: #0C3650;
+    color: #000;
     text-shadow: 1px 1px 1px #0088CC;
 }
 
 .slogan {
+    display: inline-block;
     font-size: 14px;
+    margin: 15px;
 }
 
 .inner-heading {
     font-size: 1.3em;
     font-weight: 600;
     margin: 10px;
-}
-
-header {
-    margin: 10px 0 0;
 }
 
 #error_explanation li {
@@ -157,6 +154,7 @@ header {
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
+    background-color: #e8f3f9;
 }
 
 .headnav ul li a.login-links {
