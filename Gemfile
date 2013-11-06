@@ -13,6 +13,7 @@ gem 'faker', '1.0.1'
 gem 'airbrake'
 gem 'newrelic_rpm'
 gem 'chargify_api_ares'
+gem 'rack-ssl-enforcer'
 
 # Gems used only for assets and not required
 # in production environments by default.
